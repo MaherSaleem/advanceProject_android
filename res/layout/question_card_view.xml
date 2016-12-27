@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/accent_material_light">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ans"
+        android:id="@+id/correct_ans_text_view"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_below="@+id/question_textview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ans1"
+            android:id="@+id/ans1"
+            android:checked="false"
+            android:layout_marginTop="39dp"
+            android:layout_below="@+id/question_textview"
+            android:layout_alignLeft="@+id/question_textview"
+            android:layout_alignStart="@+id/question_textview" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ans2"
+            android:id="@+id/ans2"
+            android:checked="false"
+            android:layout_below="@+id/ans1"
+            android:layout_alignLeft="@+id/ans1"
+            android:layout_alignStart="@+id/ans1" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ans3"
+            android:id="@+id/ans3"
+            android:checked="false"
+            android:layout_below="@+id/ans2"
+            android:layout_alignLeft="@+id/ans2"
+            android:layout_alignStart="@+id/ans2" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Question"
+        android:id="@+id/question_textview"
+        android:layout_alignTop="@+id/correct_ans_text_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

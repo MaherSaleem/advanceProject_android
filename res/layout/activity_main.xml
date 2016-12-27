@@ -10,14 +10,16 @@
         android:id="@+id/user_id"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:hint="ID" />
+        android:hint="ID"
+        android:text="1130258" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:text="1" />
 
     <Button
         android:id="@+id/btn_login"
