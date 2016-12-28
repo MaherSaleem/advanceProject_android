@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     TextView userId;
     TextView passWord;
     Button loginBtn;
-    private static final String BASE_URL = "http://192.168.1.7:8080/Project/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("Login page");  // provide compatibility to all the versions
 
         userId = (TextView) findViewById(R.id.user_id);
         passWord = (TextView) findViewById(R.id.password);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 final String studentId = userId.getText().toString().trim();
                 final String password = passWord.getText().toString().trim();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(GlobalClass.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 MyApiEndPointInterface apiService = retrofit.create(MyApiEndPointInterface.class);
 
                 Call<Student> repos = apiService.getStudentInfo(studentId);//the studnet ID
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Correct User", Toast.LENGTH_SHORT).show();
                             GlobalClass.studentId = Integer.parseInt(studentId);
                             GlobalClass.studentName = studentObject.getName();
-                            Intent intent = new Intent(MainActivity.this , AfterLoggedIn.class);
+                            Intent intent = new Intent(MainActivity.this , Dashboaed.class);
                             MainActivity.this.startActivity(intent);
 
                         } else {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         // Log error here since request failed
-                        Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "No internet Conncetion", Toast.LENGTH_LONG).show();
                     }
 
 
