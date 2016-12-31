@@ -1,5 +1,6 @@
 package com.example.maher.labadcanedproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 
     TextView userId;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Login page");  // provide compatibility to all the versions
 
         userId = (TextView) findViewById(R.id.user_id);
         passWord = (TextView) findViewById(R.id.password);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         // Log error here since request failed
-                        Toast.makeText(MainActivity.this, "No internet Conncetion", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Can't reach server, try to turn of firwall", Toast.LENGTH_LONG).show();
                     }
 
 

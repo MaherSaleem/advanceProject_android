@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">LabAdcanedProject</string>
     <string name="title_activity_logged_in">loggedIn</string>
+    <string name="title_activity_testtt">TESTTT</string>
 </resources>
