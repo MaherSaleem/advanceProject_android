@@ -5,4 +5,10 @@
         android:icon="@drawable/refresh"
         android:title="Refresh"
         app:showAsAction="ifRoom"></item>
+
+        <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        ></item>
+
 </menu>

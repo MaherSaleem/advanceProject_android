@@ -25,8 +25,8 @@ public interface MyApiEndPointInterface {
     @GET("quizes/{quiz_id}")
     Call<List<Question>> getQuestions(@Path("quiz_id") String quizId);
 
-    @GET("quizes/active")
-    Call<List<Quiz>> getActiveQuizes();
+    @GET("quizes/active/{stu_id}")
+    Call<List<Quiz>> getActiveQuizes(@Path("stu_id") int stu_id);
 
     @GET("quizes/upcomming")
     Call<List<Quiz>> getUpcommingQuizes();

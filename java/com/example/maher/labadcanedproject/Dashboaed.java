@@ -1,6 +1,8 @@
 package com.example.maher.labadcanedproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,7 +53,7 @@ public class Dashboaed extends AppCompatActivity {
         /*
         *   get the open quiz(if there any)
         */
-        Call<List<Quiz>> repos = apiService.getActiveQuizes();
+        Call<List<Quiz>> repos = apiService.getActiveQuizes(GlobalClass.studentId);
 
         repos.enqueue(new Callback<List<Quiz>>() {
 
@@ -155,6 +157,15 @@ public class Dashboaed extends AppCompatActivity {
                 this.finish();
 
                 break;
+            case R.id.logout:
+                SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(Dashboaed.this, MainActivity.class);
+                startActivity(intent);
+
+
         }
         return super.onOptionsItemSelected(item);
     }

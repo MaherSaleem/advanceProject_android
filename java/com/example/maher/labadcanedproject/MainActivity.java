@@ -1,6 +1,7 @@
 package com.example.maher.labadcanedproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //check sharedpreferces
+        SharedPreferences myShared = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        if (myShared.getInt("studentId", -1) != -1) {//the student have logged in before
+            GlobalClass.studentId = myShared.getInt("studentId", -1);
+            GlobalClass.studentName = myShared.getString("studentName", "NONE");
+            Intent intent = new Intent(MainActivity.this, Dashboaed.class);
+            MainActivity.this.startActivity(intent);
+
+        }
+
         userId = (TextView) findViewById(R.id.user_id);
         passWord = (TextView) findViewById(R.id.password);
         loginBtn = (Button) findViewById(R.id.btn_login);
@@ -40,6 +51,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 final String studentId = userId.getText().toString().trim();
                 final String password = passWord.getText().toString().trim();
+
 
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(GlobalClass.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 MyApiEndPointInterface apiService = retrofit.create(MyApiEndPointInterface.class);
@@ -52,11 +64,19 @@ public class MainActivity extends Activity {
                     public void onResponse(Call<Student> Call, Response<Student> response) {
                         int statusCode = response.code();
                         Student studentObject = response.body();
-                        if (studentObject.getId() == Integer.parseInt(studentId) && password.compareTo(studentObject.getPassword()) == 0 ) {
+                        if (studentObject.getId() == Integer.parseInt(studentId) && password.compareTo(studentObject.getPassword()) == 0) {
                             Toast.makeText(MainActivity.this, "Correct User", Toast.LENGTH_SHORT).show();
                             GlobalClass.studentId = Integer.parseInt(studentId);
                             GlobalClass.studentName = studentObject.getName();
-                            Intent intent = new Intent(MainActivity.this , Dashboaed.class);
+
+                            // store username info into sharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("studentId", GlobalClass.studentId);
+                            editor.putString("studentName", GlobalClass.studentName);
+                            editor.commit();
+
+                            Intent intent = new Intent(MainActivity.this, Dashboaed.class);
                             MainActivity.this.startActivity(intent);
 
                         } else {
@@ -68,7 +88,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         // Log error here since request failed
-                        Toast.makeText(MainActivity.this, "Can't reach server, try to turn of firwall", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Can't reach the server, try to turn of firewall", Toast.LENGTH_LONG).show();
                     }
 
 
@@ -79,25 +99,3 @@ public class MainActivity extends Activity {
 
     }
 }
-//                c = db.getStudent(studentName);
-//                try {
-//                    if (!(!(c.moveToFirst()) || c.getCount() == 0)) {
-//
-//                        if (c.getString(1).equals(studentName) && c.getString(2).equals(password)) {
-//                            Intent intent = new Intent(MainActivity.this, UserPage.class);
-//                            SharedPreferences.Editor editor = getSharedPreferences("MY_PREFRENCCES", MODE_PRIVATE).edit();
-//                            int id = c.getInt(0);
-//                            editor.putInt("ID", id);
-//                            editor.apply();
-//                            startActivity(intent);
-//
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "NOT FOUND", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    Toast.makeText(MainActivity.this, "IN CATCH", Toast.LENGTH_SHORT).show();
-//
-//                }
-////                String name = re
-//            }
